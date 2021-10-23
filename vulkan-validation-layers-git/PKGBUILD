@@ -13,7 +13,7 @@
 #Set '2' to build with CLANG
 #Default is set to '2'. It will build with CLANG (there is some build issues with GCC). To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
 if [ -z ${_compiler+x} ]; then
-  _compiler=2
+  _compiler=1
 fi
 
 #######################################
@@ -62,10 +62,10 @@ fi
 
   ./scripts/update_deps.py
 
-  sed -i 's/Subresource(const Subresource& from) = default;/ /' layers/subresource_adapter.h
-  sed -i 's/VmaStlAllocator& operator=(const VmaStlAllocator& x) = delete;/ /' layers/vk_mem_alloc.h
-  sed -i 's/TrackBack &operator=(const TrackBack &) = default;/ /' layers/synchronization_validation.h
-  sed -i 's/ImageRangeGenerator(const ImageRangeGenerator&) = default;/ /' layers/subresource_adapter.h
+  #sed -i 's/Subresource(const Subresource& from) = default;/ /' layers/subresource_adapter.h
+  #sed -i 's/VmaStlAllocator& operator=(const VmaStlAllocator& x) = delete;/ /' layers/vk_mem_alloc.h
+  #sed -i 's/TrackBack &operator=(const TrackBack &) = default;/ /' layers/synchronization_validation.h
+  #sed -i 's/ImageRangeGenerator(const ImageRangeGenerator&) = default;/ /' layers/subresource_adapter.h
 }
 
 build(){
