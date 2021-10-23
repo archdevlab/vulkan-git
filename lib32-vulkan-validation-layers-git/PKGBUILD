@@ -47,23 +47,16 @@ pkgver(){
 }
 
 prepare(){
-#if [[ $_compiler = "1" ]]; then
-#  export CC="gcc"
-#  export CXX="g++"
-#elif [[ $_compiler = "2" ]]; then
-#  export CC="clang"
-#  export CXX="clang++"
-#else
-#  export CC="gcc"
-#  export CXX="g++"
-#fi
-
-# because of some compiling error we build with clang for now
-
-#################
-export CC="clang"
-export CXX="clang++"
-#################
+if [[ $_compiler = "1" ]]; then
+  export CC="gcc"
+  export CXX="g++"
+elif [[ $_compiler = "2" ]]; then
+  export CC="clang"
+  export CXX="clang++"
+else
+  export CC="gcc"
+  export CXX="g++"
+fi
 
 export PKG_CONFIG=/usr/bin/i686-pc-linux-gnu-pkg-config
 export ASFLAGS=--32
@@ -76,10 +69,10 @@ export CXXFLAGS=-m32
 
   ./scripts/update_deps.py --config release --arch 32
 
-  sed -i 's/Subresource(const Subresource& from) = default;/ /' layers/subresource_adapter.h
-  sed -i 's/VmaStlAllocator& operator=(const VmaStlAllocator& x) = delete;/ /' layers/vk_mem_alloc.h
-  sed -i 's/TrackBack &operator=(const TrackBack &) = default;/ /' layers/synchronization_validation.h
-  sed -i 's/ImageRangeGenerator(const ImageRangeGenerator&) = default;/ /' layers/subresource_adapter.h
+  #sed -i 's/Subresource(const Subresource& from) = default;/ /' layers/subresource_adapter.h
+  #sed -i 's/VmaStlAllocator& operator=(const VmaStlAllocator& x) = delete;/ /' layers/vk_mem_alloc.h
+  #sed -i 's/TrackBack &operator=(const TrackBack &) = default;/ /' layers/synchronization_validation.h
+  #sed -i 's/ImageRangeGenerator(const ImageRangeGenerator&) = default;/ /' layers/subresource_adapter.h
 }
 
 build(){
