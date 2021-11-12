@@ -38,7 +38,7 @@ pkgver(){
   #git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
   #git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 
-  echo 11.6.0.r$(git rev-list $(git describe --abbrev=0 --tags 11.6.0)..HEAD --count).g$(git rev-parse --short HEAD)
+  echo 11.7.0.r$(git rev-list $(git describe --abbrev=0 --tags 11.6.0)..HEAD --count).g$(git rev-parse --short HEAD)
 }
 
 prepare(){
