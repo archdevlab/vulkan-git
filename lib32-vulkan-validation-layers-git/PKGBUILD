@@ -66,13 +66,10 @@ export CXXFLAGS=-m32
   cd Vulkan-ValidationLayers
 
   #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
+  
+  #sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
 
   ./scripts/update_deps.py --config release --arch 32
-
-  #sed -i 's/Subresource(const Subresource& from) = default;/ /' layers/subresource_adapter.h
-  #sed -i 's/VmaStlAllocator& operator=(const VmaStlAllocator& x) = delete;/ /' layers/vk_mem_alloc.h
-  #sed -i 's/TrackBack &operator=(const TrackBack &) = default;/ /' layers/synchronization_validation.h
-  #sed -i 's/ImageRangeGenerator(const ImageRangeGenerator&) = default;/ /' layers/subresource_adapter.h
 }
 
 build(){
