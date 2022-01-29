@@ -53,13 +53,14 @@ else
   export CC="gcc"
   export CXX="g++"
 fi
+
 export PKG_CONFIG=/usr/bin/i686-pc-linux-gnu-pkg-config
 export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
 
   cd Vulkan-ExtensionLayer
-  scripts/update_deps.py
+  ./scripts/update_deps.py --config release --arch 32
 }
 
 build(){
