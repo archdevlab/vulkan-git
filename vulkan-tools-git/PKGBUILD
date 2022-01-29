@@ -25,9 +25,9 @@ pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Tools'
 license=('custom')
-makedepends=('git' 'cmake' 'python' 'vulkan-headers' 'libx11' 'wayland' 'glslang' 'make' 'extra-cmake-modules'
-             'clang' 'llvm' 'llvm-libs' 'gcc' 'gcc-libs' 'ninja' 'vulkan-icd-loader')
-depends=('gcc-libs' 'llvm-libs' 'libxcb' 'wayland' 'vulkan-icd-loader')
+makedepends=('git' 'cmake' 'make' 'extra-cmake-modules' 'python' 'vulkan-headers' 'vulkan-icd-loader' 'glslang' 'spirv-tools'
+             'libx11' 'wayland' 'wayland-protocols' 'make' 'extra-cmake-modules' 'clang' 'llvm' 'llvm-libs' 'gcc' 'gcc-libs' 'ninja')
+depends=('libx11' 'wayland' 'libvulkan.so')
 conflicts=('vulkan-tools')
 provides=('vulkan-tools' 'vulkan-tools-git')
 source=('Vulkan-Tools::git+https://github.com/KhronosGroup/Vulkan-Tools.git')
