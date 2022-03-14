@@ -1,41 +1,30 @@
-#_                   _ _ _  _ _____ _  _
-#| | _______   ____ _| | | || |___  | || |
-#| |/ / _ \ \ / / _` | | | || |_ / /| || |_
-#|   <  __/\ V / (_| | | |__   _/ / |__   _|
-#|_|\_\___| \_/ \__,_|_|_|  |_|/_/     |_|
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
 
-#Maintainer: kevall474 <kevall474@tuta.io> <https://github.com/kevall474>
+#Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
 #Credits: Laurent Carlier <lordheavym@gmail.com>
-
-#######################################
-
-#Set '1' to build with GCC
-#Set '2' to build with CLANG
-#Default is set to '1'. It will build with GCC (there is some build issues with CLANG). To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
-if [ -z ${_compiler+x} ]; then
-  _compiler=1
-fi
-
-#######################################
 
 pkgname=vulkan-validation-layers-git
 pkgdesc='Vulkan Validation Layers (git version)'
 pkgver=1.2.194.r10.g03918249b
 pkgrel=1
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-ValidationLayers'
 license=(Apache-2.0)
-makedepends=('cmake' 'make' 'extra-cmake-modules' 'python' 'python-lxml' 'libx11' 'libxrandr' 'wayland' 'git'
-             'gcc' 'gcc-libs' 'clang' 'llvm' 'llvm-libs' 'ninja' 'vulkan-headers' 'vulkan-icd-loader')
-depends=('gcc-libs' 'llvm-libs' 'libx11' 'vulkan-headers' 'vulkan-icd-loader')
-conflicts=('vulkan-validation-layers')
-provides=('vulkan-validation-layers' 'vulkan-validation-layers-git')
-source=('Vulkan-ValidationLayers::git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git')
-md5sums=('SKIP')
+makedepends=(cmake make python python-lxml libx11 libxrandr wayland git ninja vulkan-headers vulkan-icd-loader gcc gcc-libs)
+depends=(gcc-libs libx11 vulkan-headers vulkan-icd-loader)
+conflicts=(vulkan-validation-layers)
+provides=(vulkan-validation-layers vulkan-validation-layers-git)
+source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
+md5sums=(SKIP)
 options=(!buildflags)
 
 pkgver(){
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
   # cutting off 'foo-' prefix that presents in the git tag
   #git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
@@ -45,39 +34,17 @@ pkgver(){
 }
 
 prepare(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
 
   #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
-  
+
   sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
 
   ./scripts/update_deps.py
 }
 
 build(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
 
   rm -rf build_64
 
@@ -106,7 +73,7 @@ fi
 }
 
 package_vulkan-validation-layers-git(){
-  DESTDIR="$pkgdir" ninja -C Vulkan-ValidationLayers/build_64/ install
+  DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ValidationLayers/build_64/ install
 
   # install licence
   install -Dm644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"

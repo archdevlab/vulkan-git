@@ -1,43 +1,32 @@
-#_                   _ _ _  _ _____ _  _
-#| | _______   ____ _| | | || |___  | || |
-#| |/ / _ \ \ / / _` | | | || |_ / /| || |_
-#|   <  __/\ V / (_| | | |__   _/ / |__   _|
-#|_|\_\___| \_/ \__,_|_|_|  |_|/_/     |_|
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
 
-#Maintainer: kevall474 <kevall474@tuta.io> <https://github.com/kevall474>
+#Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
 #Credits: Laurent Carlier <lordheavym@gmail.com>
-
-#######################################
-
-#Set '1' to build with GCC
-#Set '2' to build with CLANG
-#Default is set to '1'. It will build with GCC (there is some build issues with CLANG). To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
-if [ -z ${_compiler+x} ]; then
-  _compiler=1
-fi
-
-#######################################
 
 pkgname=lib32-vulkan-validation-layers-git
 pkgdesc='Vulkan Validation Layers (32-bit) (git version)'
 pkgver=1.2.194.r10.g03918249b
 pkgrel=1
-arch=('i686' 'x86_64')
+arch=(i686 x86_64)
 url='https://github.com/KhronosGroup/Vulkan-ValidationLayers'
 license=(Apache-2.0)
-makedepends=('cmake' 'make' 'extra-cmake-modules' 'python' 'python-lxml' 'libx11' 'libxrandr' 'wayland' 'git'
-             'gcc' 'gcc-libs' 'clang' 'llvm' 'llvm-libs' 'ninja' 'lib32-libx11' 'lib32-libxrandr' 'lib32-wayland'
-             'lib32-gcc-libs' 'lib32-clang' 'lib32-llvm' 'lib32-llvm-libs' 'vulkan-headers' 'vulkan-validation-layers'
-             'vulkan-icd-loader')
-depends=('lib32-gcc-libs' 'lib32-llvm-libs' 'lib32-libx11' 'vulkan-headers' 'lib32-vulkan-icd-loader')
-conflicts=('lib32-vulkan-validation-layers')
-provides=('lib32-vulkan-validation-layers' 'lib32-vulkan-validation-layers-git')
-source=('Vulkan-ValidationLayers::git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git')
-md5sums=('SKIP')
+makedepends=(cmake make python python-lxml libx11 libxrandr wayland git
+             gcc gcc-libs ninja lib32-libx11 lib32-libxrandr lib32-wayland
+             lib32-gcc-libs vulkan-headers vulkan-validation-layers vulkan-icd-loader)
+depends=(lib32-gcc-libs lib32-libx11 vulkan-headers lib32-vulkan-icd-loader)
+conflicts=(lib32-vulkan-validation-layers)
+provides=(lib32-vulkan-validation-layers lib32-vulkan-validation-layers-git)
+source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
+md5sums=(SKIP)
 options=(!buildflags)
 
 pkgver(){
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
   # cutting off 'foo-' prefix that presents in the git tag
   #git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
@@ -47,45 +36,27 @@ pkgver(){
 }
 
 prepare(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-
-export PKG_CONFIG=/usr/bin/i686-pc-linux-gnu-pkg-config
 export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
 
   #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
-  
+
   sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
 
   ./scripts/update_deps.py --config release --arch 32
 }
 
 build(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-export PKG_CONFIG=/usr/bin/i686-pc-linux-gnu-pkg-config
+export ASFLAGS=--32
+export CFLAGS=-m32
+export CXXFLAGS=-m32
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
 
-  cd Vulkan-ValidationLayers
+  cd ${srcdir}/Vulkan-ValidationLayers
 
   rm -rf build_32
 
@@ -114,7 +85,7 @@ export PKG_CONFIG=/usr/bin/i686-pc-linux-gnu-pkg-config
 }
 
 package_lib32-vulkan-validation-layers-git(){
-  DESTDIR="$pkgdir" ninja -C Vulkan-ValidationLayers/build_32/ install
+  DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ValidationLayers/build_32/ install
 
   rm -rf "${pkgdir}"/usr/{include,share}
 

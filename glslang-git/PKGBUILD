@@ -1,61 +1,40 @@
-#_                   _ _ _  _ _____ _  _
-#| | _______   ____ _| | | || |___  | || |
-#| |/ / _ \ \ / / _` | | | || |_ / /| || |_
-#|   <  __/\ V / (_| | | |__   _/ / |__   _|
-#|_|\_\___| \_/ \__,_|_|_|  |_|/_/     |_|
+# _     _            _        _          _____
+#| |__ | | __ _  ___| | _____| | ___   _|___ /
+#| '_ \| |/ _` |/ __| |/ / __| |/ / | | | |_ \
+#| |_) | | (_| | (__|   <\__ \   <| |_| |___) |
+#|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
+#                                  |___/
 
-#Maintainer: kevall474 <kevall474@tuta.io> <https://github.com/kevall474>
-
-#######################################
-
-#Set '1' to build with GCC
-#Set '2' to build with CLANG
-#Default is empty. It will build with GCC. To build with different compiler just use : env _compiler=(1 or 2) makepkg -s
-if [ -z ${_compiler+x} ]; then
-  _compiler=
-fi
-
-#######################################
+#Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
 
 pkgname=glslang-git
 pkgdesc='OpenGL and OpenGL ES shader front end and validator. (git version)'
-pkgver=11.6.0.r8.g80dcc369
+pkgver=11.8.0.r20.g538231d8
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/KhronosGroup/glslang'
 license=(BSD)
-makedepends=('make' 'cmake' 'git' 'extra-cmake-modules' 'python' 'ninja' 'clang' 'llvm' 'llvm-libs'
-             'gcc' 'gcc-libs')
-depends=('gcc-libs' 'llvm-libs' 'python')
-conflicts=('glslang')
-provides=('glslang' 'glslang-git')
-options=('staticlibs')
-source=('glslang::git+https://github.com/KhronosGroup/glslang.git')
-md5sums=('SKIP')
+makedepends=(make cmake git python ninja gcc gcc-libs)
+depends=(gcc-libs python)
+conflicts=(glslang)
+provides=(glslang glslang-git)
+options=(staticlibs)
+source=(git+https://github.com/KhronosGroup/glslang.git)
+md5sums=(SKIP)
 
 pkgver(){
-  cd glslang
+  cd ${srcdir}/glslang
   #git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
   #git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 
   #echo 11.7.0.r$(git rev-list $(git describe --abbrev=0 --tags 11.6.0)..HEAD --count).g$(git rev-parse --short HEAD)
-  
+
   git describe --long --tags --exclude master-tot --exclude sdk-* --exclude SDK-candidate\* --exclude untagged\* | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 prepare(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-
-  cd glslang
+  cd ${srcdir}/glslang
+  
   rm -rf External/spirv-tools
   rm -rf External/spirv-tools/external/spirv-headers
   rm -rf External/googletest
@@ -63,18 +42,7 @@ fi
 }
 
 build(){
-if [[ $_compiler = "1" ]]; then
-  export CC="gcc"
-  export CXX="g++"
-elif [[ $_compiler = "2" ]]; then
-  export CC="clang"
-  export CXX="clang++"
-else
-  export CC="gcc"
-  export CXX="g++"
-fi
-
-  cd glslang
+  cd ${srcdir}/glslang
 
   rm -rf build_64-{static,shared}
 
@@ -119,8 +87,8 @@ fi
 }
 
 package_glslang-git(){
-  DESTDIR="$pkgdir" ninja -C glslang/build_64-shared/ install
-  DESTDIR="$pkgdir" ninja -C glslang/build_64-static/ install
+  DESTDIR="$pkgdir" ninja -C ${srcdir}/glslang/build_64-shared/ install
+  DESTDIR="$pkgdir" ninja -C ${srcdir}/glslang/build_64-static/ install
 
   # install licence
   install -Dm644 "${srcdir}"/glslang/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
