@@ -29,7 +29,6 @@ pkgver(){
   cd ${srcdir}/Vulkan-ValidationLayers
   
   # cutting off 'foo-' prefix that presents in the git tag
-  #git describe --long | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
