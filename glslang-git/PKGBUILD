@@ -24,10 +24,6 @@ md5sums=(SKIP)
 
 pkgver(){
   cd ${srcdir}/glslang
-  #git describe --long | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-  #git describe --long --tags | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-
-  #echo 11.7.0.r$(git rev-list $(git describe --abbrev=0 --tags 11.6.0)..HEAD --count).g$(git rev-parse --short HEAD)
 
   git describe --long --tags --exclude master-tot --exclude sdk-* --exclude SDK-candidate\* --exclude untagged\* | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
 }
