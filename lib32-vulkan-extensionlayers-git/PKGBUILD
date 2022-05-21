@@ -78,5 +78,6 @@ package_lib32-vulkan-extensionlayers-git(){
   rm -rf "${pkgdir}"/usr/{bin,include,share}
 
   # install licence
-  install -Dm644 "${srcdir}"/Vulkan-ExtensionLayer/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }

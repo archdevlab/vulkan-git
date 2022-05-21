@@ -27,7 +27,7 @@ options=(!buildflags)
 
 pkgver(){
   cd ${srcdir}/Vulkan-ValidationLayers
-  
+
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
@@ -39,7 +39,7 @@ export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
 export CFLAGS+=" -m32 -ffat-lto-objects"
-export CXXFLAGS+=" -m32 -ffat-lto-objects"  
+export CXXFLAGS+=" -m32 -ffat-lto-objects"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   cd ${srcdir}/Vulkan-ValidationLayers
@@ -58,7 +58,7 @@ export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
 export CFLAGS+=" -m32 -ffat-lto-objects"
-export CXXFLAGS+=" -m32 -ffat-lto-objects"  
+export CXXFLAGS+=" -m32 -ffat-lto-objects"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   cd ${srcdir}/Vulkan-ValidationLayers
@@ -95,7 +95,8 @@ package_lib32-vulkan-validation-layers-git(){
   rm -rf "${pkgdir}"/usr/{include,share}
 
   # install licence
-  install -Dm644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 
   #cd "${pkgdir}/usr/bin"
   #for i in $(find . -type f); do mv ${i} ${i}-32; done

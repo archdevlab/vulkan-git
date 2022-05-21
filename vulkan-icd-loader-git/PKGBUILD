@@ -25,7 +25,7 @@ md5sums=(SKIP)
 
 pkgver(){
  cd ${srcdir}/Vulkan-Loader
- 
+
  # cutting off 'foo-' prefix that presents in the git tag
  git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
@@ -64,7 +64,7 @@ build(){
 
 package_vulkan-icd-loader-git(){
   DESTDIR="${pkgdir}" ninja -C ${srcdir}/Vulkan-Loader/build_64/ install
-  
+
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
   install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/

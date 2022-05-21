@@ -23,7 +23,7 @@ md5sums=(SKIP)
 
 pkgver(){
   cd ${srcdir}/Vulkan-Headers
-  
+
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
@@ -47,5 +47,6 @@ package() {
   DESTDIR="${pkgdir}" ninja -C ${srcdir}/Vulkan-Headers/build/ install
 
   # install licence
-  install -Dm644 "${srcdir}"/Vulkan-Headers/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }

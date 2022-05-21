@@ -25,7 +25,7 @@ options=(!buildflags)
 
 pkgver(){
   cd ${srcdir}/Vulkan-ValidationLayers
-  
+
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
@@ -71,11 +71,11 @@ build(){
 
 package_vulkan-validation-layers-git(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ValidationLayers/build_64/ install
-  
+
   # install doc
   install -dm755 "${pkgdir}"/usr/share/doc/${pkgname}/
   cp -r ${srcdir}/Vulkan-ValidationLayers/docs/* "${pkgdir}"/usr/share/doc/${pkgname}/
-  
+
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
   install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/

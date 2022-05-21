@@ -60,5 +60,6 @@ package_vulkan-extensionlayers-git(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ExtensionLayer/build_64/ install
 
   # install licence
-  install -Dm644 "${srcdir}"/Vulkan-ExtensionLayer/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
