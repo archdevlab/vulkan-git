@@ -20,7 +20,7 @@ makedepends=(cmake make python python-lxml libx11 libxrandr wayland git
              lib32-gcc-libs vulkan-headers vulkan-validation-layers vulkan-icd-loader)
 depends=(lib32-gcc-libs lib32-libx11 vulkan-headers lib32-vulkan-icd-loader)
 conflicts=(lib32-vulkan-validation-layers)
-provides=(lib32-vulkan-validation-layers lib32-vulkan-validation-layers-git)
+provides=(lib32-vulkan-validation-layers lib32-vulkan-validation-layers-git libVkLayer_khronos_validation.so)
 source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
 md5sums=(SKIP)
 options=(!buildflags)
@@ -38,6 +38,8 @@ export CXX='g++ -m32'
 export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
+export CFLAGS+=" -m32 -ffat-lto-objects"
+export CXXFLAGS+=" -m32 -ffat-lto-objects"  
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   cd ${srcdir}/Vulkan-ValidationLayers
@@ -55,6 +57,8 @@ export CXX='g++ -m32'
 export ASFLAGS=--32
 export CFLAGS=-m32
 export CXXFLAGS=-m32
+export CFLAGS+=" -m32 -ffat-lto-objects"
+export CXXFLAGS+=" -m32 -ffat-lto-objects"  
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   cd ${srcdir}/Vulkan-ValidationLayers
