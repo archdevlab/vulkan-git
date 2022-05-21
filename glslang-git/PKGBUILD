@@ -14,7 +14,7 @@ pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/glslang'
 license=(BSD)
-makedepends=(make cmake git python ninja gcc gcc-libs)
+makedepends=(make cmake git python ninja gcc gcc-libs spirv-tools spirv-headers)
 depends=(gcc-libs python)
 conflicts=(glslang)
 provides=(glslang glslang-git)
@@ -30,14 +30,12 @@ pkgver(){
 
 prepare(){
   cd ${srcdir}/glslang
-  
-  rm -rf External/spirv-tools
-  rm -rf External/spirv-tools/external/spirv-headers
-  rm -rf External/googletest
   #./update_glslang_sources.py
 }
 
 build(){
+export CXXFLAGS+=" -ffat-lto-objects"
+
   cd ${srcdir}/glslang
 
   rm -rf build_64-{static,shared}
