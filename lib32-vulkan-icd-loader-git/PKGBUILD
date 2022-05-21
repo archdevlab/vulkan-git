@@ -65,7 +65,6 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -DBUILD_WSI_XLIB_SUPPORT=On \
   -DBUILD_WSI_WAYLAND_SUPPORT=On \
   -DCMAKE_BUILD_TYPE=Release \
-  -DBUILD_LOADER=ON \
   -DUSE_CCACHE=OFF
 
   ninja -C build_32
