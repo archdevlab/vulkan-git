@@ -18,7 +18,7 @@ license=(Apache-2.0)
 makedepends=(cmake make python python-lxml libx11 libxrandr wayland git ninja vulkan-headers vulkan-icd-loader gcc gcc-libs)
 depends=(gcc-libs libx11 vulkan-headers vulkan-icd-loader)
 conflicts=(vulkan-validation-layers)
-provides=(vulkan-validation-layers vulkan-validation-layers-git)
+provides=(vulkan-validation-layers vulkan-validation-layers-git libVkLayer_khronos_validation.so)
 source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
 md5sums=(SKIP)
 options=(!buildflags)
@@ -71,6 +71,10 @@ build(){
 
 package_vulkan-validation-layers-git(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ValidationLayers/build_64/ install
+  
+  # install doc
+  install -dm755 "${pkgdir}"/usr/share/doc/${pkgname}/
+  cp -r ${srcdir}/Vulkan-ValidationLayers/docs/* "${pkgdir}"/usr/share/doc/${pkgname}/
 
   # install licence
   install -Dm644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
