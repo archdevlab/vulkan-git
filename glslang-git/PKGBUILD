@@ -6,6 +6,7 @@
 #                                  |___/
 
 #Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
+#Credits: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=glslang-git
 pkgdesc='OpenGL and OpenGL ES shader front end and validator. (git version)'
