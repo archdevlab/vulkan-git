@@ -96,7 +96,7 @@ package_lib32-vulkan-validation-layers-git(){
 
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 
   #cd "${pkgdir}/usr/bin"
   #for i in $(find . -type f); do mv ${i} ${i}-32; done

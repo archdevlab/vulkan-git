@@ -85,7 +85,8 @@ package_glslang-git(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/glslang/build_64-static/ install
 
   # install licence
-  install -Dm644 "${srcdir}"/glslang/LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m644 "${srcdir}"/glslang/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 
   cd "${pkgdir}"/usr/lib
   for lib in *.so; do

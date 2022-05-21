@@ -78,5 +78,5 @@ package_vulkan-validation-layers-git(){
 
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }

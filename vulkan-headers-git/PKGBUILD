@@ -48,5 +48,5 @@ package() {
 
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 "${srcdir}"/Vulkan-Headers/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
