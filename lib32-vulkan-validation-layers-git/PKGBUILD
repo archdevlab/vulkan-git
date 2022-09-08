@@ -46,7 +46,7 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
 
-  sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
+  #sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
 
   ./scripts/update_deps.py --config release --arch 32
 }
