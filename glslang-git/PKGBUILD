@@ -57,7 +57,8 @@ export CXXFLAGS+=" -ffat-lto-objects"
   -DENABLE_OPT=ON \
   -DENABLE_PCH=ON \
   -DENABLE_CTEST=ON \
-  -DUSE_CCACHE=OFF
+  -DUSE_CCACHE=OFF \
+  -DENABLE_GLSLANG_JS=OFF
 
   cmake -H. -G Ninja -Bbuild_64-static \
   -DCMAKE_C_FLAGS=-m64 \
@@ -75,7 +76,8 @@ export CXXFLAGS+=" -ffat-lto-objects"
   -DENABLE_OPT=ON \
   -DENABLE_PCH=ON \
   -DENABLE_CTEST=ON \
-  -DUSE_CCACHE=OFF
+  -DUSE_CCACHE=OFF \
+  -DENABLE_GLSLANG_JS=OFF
 
   ninja -C build_64-shared
   ninja -C build_64-static
