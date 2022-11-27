@@ -5,7 +5,7 @@
 #|_.__/|_|\__,_|\___|_|\_\___/_|\_\\__, |____/
 #                                  |___/
 
-#Maintainer: blacksky3 <blacksky3@tuta.io> <https://github.com/blacksky3>
+#Maintainer: blacksky3 <https://github.com/blacksky3>
 
 pkgname=lib32-vulkan-extensionlayers-git
 pkgdesc='Layer providing Vulkan features when native support is unavailable (32-bit) (git version)'
