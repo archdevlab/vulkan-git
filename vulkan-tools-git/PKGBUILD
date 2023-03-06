@@ -10,7 +10,7 @@
 
 pkgname=vulkan-tools-git
 pkgdesc='Vulkan Utilities and Tools (git version)'
-pkgver=1.2.192.r0.g5a070f28
+pkgver=1.3.242.r1.g5bcfa160
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Tools'
@@ -40,6 +40,7 @@ build(){
   cd ${srcdir}/Vulkan-Tools
 
   rm -rf build
+  rm -rf build-wayland
 
   cmake -H. -G Ninja -Bbuild \
   -DCMAKE_C_FLAGS=-m64 \
@@ -54,19 +55,40 @@ build(){
   -DBUILD_CUBE=ON \
   -DBUILD_VULKANINFO=ON \
   -DBUILD_ICD=OFF \
-  -DINSTALL_ICD=OFF \
   -DGLSLANG_INSTALL_DIR=/usr \
-  -DCMAKE_BUILD_TYPE=Debug \
   -DVULKAN_HEADERS_INSTALL_DIR=/usr \
   -DVULKAN_LOADER_INSTALL_DIR=/usr \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_CCACHE=OFF
+
+  cmake -H. -G Ninja -Bbuild-wayland \
+  -DCMAKE_C_FLAGS=-m64 \
+  -DCMAKE_CXX_FLAGS=-m64 \
+  -DCMAKE_INSTALL_PREFIX=/usr \
+  -DCMAKE_INSTALL_SYSCONFDIR=/etc \
+  -DCMAKE_INSTALL_DATADIR=/usr/share \
+  -DCMAKE_SKIP_RPATH=True \
+  -DBUILD_WSI_XCB_SUPPORT=OFF \
+  -DBUILD_WSI_XLIB_SUPPORT=OFF \
+  -DBUILD_WSI_WAYLAND_SUPPORT=On \
+  -DBUILD_CUBE=ON \
+  -DCUBE_WSI_SELECTION=WAYLAND \
+  -DBUILD_VULKANINFO=OFF \
+  -DBUILD_ICD=OFF \
   -DGLSLANG_INSTALL_DIR=/usr \
+  -DVULKAN_HEADERS_INSTALL_DIR=/usr \
+  -DVULKAN_LOADER_INSTALL_DIR=/usr \
+  -DCMAKE_BUILD_TYPE=Release \
   -DUSE_CCACHE=OFF
 
   ninja -C build/
+  ninja -C build-wayland/
 }
 
 package(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-Tools/build/ install
+
+  install -m755 ${srcdir}/Vulkan-Tools/build-wayland/cube/vkcube-wayland "${pkgdir}"/usr/bin/
 
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
