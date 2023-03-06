@@ -10,7 +10,7 @@
 
 pkgname=vulkan-headers-git
 pkgdesc='Vulkan header files (git version)'
-pkgver=1.3.242.r0.ga3dd265
+pkgver=1.3.242
 pkgrel=1
 arch=('x86_64')
 url='https://github.com/KhronosGroup/Vulkan-Headers'
