@@ -29,24 +29,24 @@ pkgver(){
   git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepare(){
-export CC='gcc -m32'
-export CXX='g++ -m32'
-export ASFLAGS=--32
-export CFLAGS=-m32
-export CXXFLAGS=-m32
-export CFLAGS+=" -m32 -ffat-lto-objects"
-export CXXFLAGS+=" -m32 -ffat-lto-objects"
-export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
-
-  cd ${srcdir}/Vulkan-ValidationLayers
-
-  #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
-
-  #sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
-
-  ./scripts/update_deps.py --config release --arch 32
-}
+#prepare(){
+#export CC='gcc -m32'
+#export CXX='g++ -m32'
+#export ASFLAGS=--32
+#export CFLAGS=-m32
+#export CXXFLAGS=-m32
+#export CFLAGS+=" -m32 -ffat-lto-objects"
+#export CXXFLAGS+=" -m32 -ffat-lto-objects"
+#export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
+#
+#  cd ${srcdir}/Vulkan-ValidationLayers
+#
+#  #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
+#
+#  #sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
+#
+#  ./scripts/update_deps.py --config release --arch 32
+#}
 
 build(){
 export CC='gcc -m32'
