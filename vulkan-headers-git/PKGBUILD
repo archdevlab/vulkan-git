@@ -35,10 +35,8 @@ build(){
 
   cmake -H. -G Ninja -Bbuild \
   -DCMAKE_C_FLAGS=-m64 \
-  -DCMAKE_CXX_FLAGS=-m64 \
   -DCMAKE_INSTALL_PREFIX=/usr \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DUSE_CCACHE=OFF
+  -DCMAKE_BUILD_TYPE=Release
 
   ninja -C build
 }
