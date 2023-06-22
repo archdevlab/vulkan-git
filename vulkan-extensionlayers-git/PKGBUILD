@@ -7,7 +7,7 @@
 
 #Maintainer: blacksky3 <https://github.com/blacksky3>
 
-pkgname=vulkan-extensionlayers-git
+pkgname=vulkan-extensionlayer-git
 pkgdesc='Layer providing Vulkan features when native support is unavailable (git version)'
 pkgver=1.3.241
 pkgrel=1
