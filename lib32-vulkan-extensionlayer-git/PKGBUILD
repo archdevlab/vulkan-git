@@ -71,7 +71,7 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   ninja -C build_32
 }
 
-package_lib32-vulkan-extensionlayers-git(){
+package(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ExtensionLayer/build_32/ install
 
   rm -rf "${pkgdir}"/usr/{bin,include,share}
