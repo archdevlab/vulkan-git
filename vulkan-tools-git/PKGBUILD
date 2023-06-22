@@ -15,8 +15,7 @@ pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Tools'
 license=(custom)
-makedepends=(make cmake python vulkan-headers vulkan-icd-loader glslang spirv-tools
-             libx11 wayland wayland-protocols gcc gcc-libs ninja)
+makedepends=(cmake python vulkan-headers vulkan-icd-loader wayland-protocols glslang spirv-tools git ninja)
 depends=(libx11 wayland libvulkan.so)
 conflicts=(vulkan-tools)
 provides=(vulkan-tools vulkan-tools-git)
