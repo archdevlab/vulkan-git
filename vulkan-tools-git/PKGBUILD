@@ -29,17 +29,19 @@ pkgver(){
  git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepapre(){
-  ${srcdir}/cd Vulkan-Tools
-
-  ./scripts/update_deps.py
-}
+#prepapre(){
+#  ${srcdir}/cd Vulkan-Tools
+#
+#  ./scripts/update_deps.py
+#}
 
 build(){
   cd ${srcdir}/Vulkan-Tools
 
   rm -rf build
   rm -rf build-wayland
+
+  ./scripts/update_deps.py
 
   cmake -H. -G Ninja -Bbuild \
   -DCMAKE_C_FLAGS=-m64 \
