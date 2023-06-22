@@ -26,15 +26,17 @@ pkgver(){
   git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepare(){
-  cd ${srcdir}/Vulkan-ExtensionLayer
-  scripts/update_deps.py
-}
+#prepare(){
+#  cd ${srcdir}/Vulkan-ExtensionLayer
+#  ./scripts/update_deps.py
+#}
 
 build(){
   cd ${srcdir}/Vulkan-ExtensionLayer
 
   rm -rf build_64
+
+  ./scripts/update_deps.py
 
   cmake -C helper.cmake -H. -G Ninja -Bbuild_64 \
   -DCMAKE_C_FLAGS=-m64 \
