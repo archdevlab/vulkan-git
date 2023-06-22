@@ -56,7 +56,7 @@ build(){
   ninja -C build_64
 }
 
-package_vulkan-extensionlayers-git(){
+package(){
   DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ExtensionLayer/build_64/ install
 
   # install licence
