@@ -15,15 +15,15 @@ pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/KhronosGroup/Vulkan-ValidationLayers'
 license=(Apache-2.0)
-makedepends=(cmake python lib32-libx11 lib32-libxrandr lib32-wayland vulkan-headers git ninja make)
-depends=(lib32-gcc-libs lib32-libx11 vulkan-headers lib32-vulkan-icd-loader)
+makedepends=(cmake python lib32-libx11 lib32-libxrandr lib32-wayland git make)
+depends=(lib32-gcc-libs lib32-vulkan-icd-loader vulkan-headers)
 conflicts=(lib32-vulkan-validation-layers)
 provides=(lib32-vulkan-validation-layers lib32-vulkan-validation-layers-git libVkLayer_khronos_validation.so)
+options=(!lto !strip) # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
 source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
-md5sums=(SKIP)
 
 pkgver(){
-  cd ${srcdir}/Vulkan-ValidationLayers
+  cd "${srcdir}"/Vulkan-ValidationLayers
 
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
@@ -39,7 +39,7 @@ pkgver(){
 #export CXXFLAGS+=" -m32 -ffat-lto-objects -Wno-error=restrict"
 #export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 #
-#  cd ${srcdir}/Vulkan-ValidationLayers
+#  cd "${srcdir}"/Vulkan-ValidationLayers
 #
 #  #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
 #
@@ -58,41 +58,43 @@ export CFLAGS+=" -m32 -ffat-lto-objects"
 export CXXFLAGS+=" -m32 -ffat-lto-objects -Wno-error=restrict"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-  cd ${srcdir}/Vulkan-ValidationLayers
+  rm -rf "${srcdir}"/build
 
-  rm -rf build_32
+  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release --arch 32
 
-  ./scripts/update_deps.py --config release --arch 32
+  cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Headers \
+  -G "Unix Makefiles" \
+  -D CMAKE_C_FLAGS=-m32 \
+  -D CMAKE_CXX_FLAGS=-m32 \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib32 \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
+  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D BUILD_LAYERS=ON \
+  -D BUILD_LAYER_SUPPORT_FILES=ON \
+  -D CMAKE_SKIP_RPATH=True \
+  -D BUILD_TESTS=OFF \
+  -D BUILD_WSI_XCB_SUPPORT=On \
+  -D BUILD_WSI_XLIB_SUPPORT=On \
+  -D BUILD_WSI_WAYLAND_SUPPORT=On \
+  -D USE_ROBIN_HOOD_HASHING=OFF \
+  -Wno-dev
 
-  cmake -C helper.cmake -H. -G Ninja -Bbuild_32 \
-  -DCMAKE_CXX_FLAGS=-m32 \
-  -DCMAKE_INSTALL_PREFIX=/usr \
-  -DVULKAN_HEADERS_INSTALL_DIR=/usr \
-  -DCMAKE_INSTALL_LIBDIR=lib32 \
-  -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-  -DCMAKE_INSTALL_DATADIR=/share \
-  -DCMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
-  -DBUILD_LAYERS=ON \
-  -DBUILD_LAYER_SUPPORT_FILES=ON \
-  -DCMAKE_SKIP_RPATH=True \
-  -DBUILD_TESTS=OFF \
-  -DBUILD_WSI_XCB_SUPPORT=On \
-  -DBUILD_WSI_XLIB_SUPPORT=On \
-  -DBUILD_WSI_WAYLAND_SUPPORT=On \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DUSE_ROBIN_HOOD_HASHING=OFF
-
-  ninja -C build_32
+  make -j$(nproc) -C "${srcdir}"/build
 }
 
 package(){
-  DESTDIR="$pkgdir" ninja -C ${srcdir}/Vulkan-ValidationLayers/build_32/ install
+  make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
 
   rm -rf "${pkgdir}"/usr/{include,share}
 
   # install licence
-  install -dm755 "${pkgdir}"/usr/share/licenses/${pkgname}
-  install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
+
+sha256sums=('SKIP')
 
 # vim:set ts=8 sts=2 sw=2 et:
