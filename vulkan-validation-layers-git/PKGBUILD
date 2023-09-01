@@ -24,25 +24,14 @@ source=(git+https://github.com/KhronosGroup/Vulkan-ValidationLayers.git)
 
 pkgver(){
   cd "${srcdir}"/Vulkan-ValidationLayers
-
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-#prepare(){
-#  cd "${srcdir}"/Vulkan-ValidationLayers
-#
-#  #rm -rf {glslang,Vulkan-Headers,SPIRV-Headers,SPIRV-Tools,robin-hood-hashing,googletest}
-#
-#  #sed -i s'/"commit": "release-1.8.1",/"commit": "release-1.11.0",/' scripts/known_good.json
-#
-#  ./scripts/update_deps.py
-#}
-
 build(){
   rm -rf "${srcdir}"/build
 
-  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py
+  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Headers \
   -G "Unix Makefiles" \
