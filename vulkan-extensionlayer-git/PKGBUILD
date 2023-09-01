@@ -54,7 +54,7 @@ package(){
 
   # install doc
   install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
-  cp -r "${srcdir}"/Vulkan-ValidationLayers/docs/* "${pkgdir}"/usr/share/doc/"${pkgname}"/
+  cp -r "${srcdir}"/Vulkan-ExtensionLayer/docs/* "${pkgdir}"/usr/share/doc/"${pkgname}"/
 
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
