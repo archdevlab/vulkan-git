@@ -19,11 +19,9 @@ makedepends=(cmake git ninja make)
 conflicts=(vulkan-headers)
 provides=(vulkan-hpp vulkan-headers vulkan-headers-git)
 source=(git+https://github.com/KhronosGroup/Vulkan-Headers.git)
-md5sums=(SKIP)
 
 pkgver(){
   cd "${srcdir}"/Vulkan-Headers
-
   # cutting off 'foo-' prefix that presents in the git tag
   git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
@@ -36,6 +34,8 @@ build(){
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
@@ -48,5 +48,7 @@ package(){
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-Headers/LICENSES/* "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
+
+sha256sums=('SKIP')
 
 # vim:set ts=8 sts=2 sw=2 et:
