@@ -52,6 +52,10 @@ build(){
 package(){
   make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
 
+  # install doc
+  install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
+  cp -r "${srcdir}"/Vulkan-ValidationLayers/docs/* "${pkgdir}"/usr/share/doc/"${pkgname}"/
+
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-ExtensionLayer/LICENSE "${pkgdir}"/usr/share/licenses/"${pkgname}"/
