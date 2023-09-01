@@ -21,32 +21,22 @@ optdepends=('lib32-vulkan-driver: packaged vulkan driver')
 conflicts=(lib32-vulkan-icd-loader)
 provides=(lib32-vulkan-icd-loader libvulkan.so lib32-vulkan-icd-loader-git)
 source=(git+https://github.com/KhronosGroup/Vulkan-Loader.git)
-md5sums=(SKIP)
 
 pkgver(){
  cd "${srcdir}"/Vulkan-Loader
-
  # cutting off 'foo-' prefix that presents in the git tag
  git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-prepare(){
-  cd "${srcdir}"/Vulkan-Loader
-  #scripts/update_deps.py
-  #git clone https://github.com/google/googletest.git external/googletest # optional
-}
-
 build(){
-export CC='gcc -m32'
-export CXX='g++ -m32'
 export ASFLAGS=--32
-export CFLAGS=-m32
-export CXXFLAGS=-m32
+export CFLAGS+=-m32
+export CXXFLAGS+=-m32
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   rm -rf "${srcdir}"/build
 
-  cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Headers \
+  cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Loader \
   -D CMAKE_C_FLAGS=-m32 \
   -D CMAKE_CXX_FLAGS=-m32 \
   -G "Unix Makefiles" \
@@ -73,5 +63,7 @@ package(){
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
+
+sha256sums=('SKIP')
 
 # vim:set ts=8 sts=2 sw=2 et:
