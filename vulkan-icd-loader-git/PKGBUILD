@@ -21,25 +21,17 @@ optdepends=('vulkan-driver: packaged vulkan driver')
 conflicts=(vulkan-icd-loader)
 provides=(vulkan-icd-loader libvulkan.so vulkan-icd-loader-git)
 source=(git+https://github.com/KhronosGroup/Vulkan-Loader.git)
-md5sums=(SKIP)
 
 pkgver(){
  cd "${srcdir}"/Vulkan-Loader
-
  # cutting off 'foo-' prefix that presents in the git tag
  git describe --long --tags --abbrev=7 --exclude sdk-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
-prepare(){
-  cd "${srcdir}"/Vulkan-Loader
-  #scripts/update_deps.py
-  #git clone https://github.com/google/googletest.git external/googletest # optional
 }
 
 build(){
   rm -rf "${srcdir}"/build
 
-  cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Headers \
+  cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Loader \
   -G "Unix Makefiles" \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
@@ -60,9 +52,15 @@ build(){
 package(){
   make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
 
+  # install doc
+  install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
+  cp -r "${srcdir}"/Vulkan-Loader/docs/* "${pkgdir}"/usr/share/doc/"${pkgname}"/
+
   # install licence
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-Loader/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
+
+sha256sums=('SKIP')
 
 # vim:set ts=8 sts=2 sw=2 et:
