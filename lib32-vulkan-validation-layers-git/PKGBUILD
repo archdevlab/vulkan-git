@@ -38,7 +38,9 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   rm -rf "${srcdir}"/build
 
-  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release --arch 32
+  pushd "${srcdir}"/Vulkan-ValidationLayers/scripts
+  ./update_deps.py --config release --arch 32
+  popd
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-ValidationLayers \
   -G "Unix Makefiles" \
