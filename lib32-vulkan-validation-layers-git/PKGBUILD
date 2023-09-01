@@ -30,8 +30,8 @@ pkgver(){
 
 build(){
 export ASFLAGS=--32
-export CFLAGS=-m32
-export CXXFLAGS=-m32
+export CFLAGS+=-m32
+export CXXFLAGS+=-m32
 export CFLAGS+=" -m32 -ffat-lto-objects"
 export CXXFLAGS+=" -m32 -ffat-lto-objects -Wno-error=restrict"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
@@ -73,6 +73,6 @@ package(){
   install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
 
-sha256sums=('SKIP')
+sha256sums=(SKIP)
 
 # vim:set ts=8 sts=2 sw=2 et:
