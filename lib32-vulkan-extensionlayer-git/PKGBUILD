@@ -52,7 +52,8 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -D BUILD_LAYER_SUPPORT_FILES=ON \
   -D CMAKE_SKIP_RPATH=True \
   -D BUILD_TESTS=OFF \
-  -D INSTALL_TESTS=OFF
+  -D INSTALL_TESTS=OFF \
+  -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
 }
