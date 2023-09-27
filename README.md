@@ -10,6 +10,6 @@ Prebuild package are available at https://repo.ardevlab.xyz/x86_64/vulkan-git
 
 You can add this repo to your pacman.conf
 
-    [llvm-minimal-git]
+    [vulkan-git]
     SigLevel = Optional TrustAll
     Server = https://repo.ardevlab.xyz/$arch/$repo
