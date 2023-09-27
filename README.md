@@ -10,6 +10,9 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 - lib32-vulkan-icd-loader-git
 - vulkan-validation-layers-git
 - lib32-vulkan-validation-layers-git
+- vulkan-extensionlayer-git
+- lib32-vulkan-extensionlayer-git
+- vulkan-tools-git
 
 ### Prebuild package
 
