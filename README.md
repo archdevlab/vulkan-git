@@ -16,10 +16,10 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 
 ### Prebuild package
 
-Prebuild package are available at https://repo.ardevlab.org/x86_64/vulkan-git
+Prebuild package are available at https://repo.archdevlab.org/x86_64/vulkan-git
 
 You can add this repo to your pacman.conf
 
     [vulkan-git]
     SigLevel = Optional TrustAll
-    Server = https://repo.ardevlab.org/$arch/$repo
+    Server = https://repo.archdevlab.org/$arch/$repo
