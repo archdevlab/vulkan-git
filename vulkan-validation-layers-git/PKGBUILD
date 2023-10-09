@@ -24,9 +24,7 @@ pkgver(){
 build(){
   rm -rf "${srcdir}"/build
 
-  pushd "${srcdir}"/Vulkan-ValidationLayers/scripts
-  ./update_deps.py --config release
-  popd
+  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-ValidationLayers \
   -G "Unix Makefiles" \
