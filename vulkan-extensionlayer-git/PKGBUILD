@@ -22,9 +22,7 @@ pkgver(){
 build(){
   rm -rf "${srcdir}"/build
 
-  pushd "${srcdir}"/Vulkan-ExtensionLayer/scripts
-  ./update_deps.py --config release
-  popd
+  "${srcdir}"/Vulkan-ExtensionLayer/scripts/update_deps.py --config release
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-ExtensionLayer \
   -G "Unix Makefiles" \
