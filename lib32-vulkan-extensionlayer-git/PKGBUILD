@@ -20,7 +20,7 @@ pkgver(){
 }
 
 build(){
-export ASFLAGS=" --32"
+export ASFLAGS+=" --32"
 export CFLAGS+=" -m32"
 export CXXFLAGS+=" -m32"
 export CFLAGS+=" -m32 -ffat-lto-objects"
