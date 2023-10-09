@@ -22,9 +22,9 @@ pkgver(){
 }
 
 build(){
-export ASFLAGS=--32
-export CFLAGS+=-m32
-export CXXFLAGS+=-m32
+export ASFLAGS=" --32"
+export CFLAGS+=" -m32"
+export CXXFLAGS+=" -m32"
 export CFLAGS+=" -m32 -ffat-lto-objects"
 export CXXFLAGS+=" -m32 -ffat-lto-objects -Wno-error=restrict"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
