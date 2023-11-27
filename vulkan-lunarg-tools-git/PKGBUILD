@@ -1,4 +1,5 @@
-# Maintainer: Laurent Carlier <lordheavym@gmail.com>
+#Maintainer: archdevlab <https://github.com/archdevlab>
+#Credits: Laurent Carlier <lordheavym@gmail.com>
 
 pkgbase=vulkan-lunarg-tools-git
 pkgname=(vulkan-extra-tools-git vulkan-extra-layers-git)
@@ -8,9 +9,8 @@ arch=(x86_64)
 url='https://github.com/LunarG/VulkanTools.git'
 license=('custom')
 depends=()
-makedepends=(git cmake python libx11 libxrandr wayland qt5-svg qt5-webengine)
+makedepends=(git cmake python libx11 libxrandr wayland qt5-svg qt5-webengine make)
 source=(git+https://github.com/LunarG/VulkanTools.git)
-sha256sums=(SKIP)
 
 _install(){
   local src f dir
@@ -46,7 +46,6 @@ build(){
   -D BUILD_WSI_WAYLAND_SUPPORT=On \
   -D BUILD_TESTS=OFF \
   -D BUILD_VIA=ON \
-  -D CMAKE_BUILD_TYPE=Release \
   -Wno-dev
   
   make -j$(nproc) -C "${srcdir}"/build
@@ -55,20 +54,28 @@ build(){
 }
 
 package_vulkan-extra-tools-git(){
-  pkgdesc="Vulkan lunarg tools"
+  pkgdesc='Vulkan lunarg tools (git version)'
   depends=(vulkan-validation-layers qt5-svg qt5-webengine)
   conflicts=('vulkan-trace<1.2.148.1')
+  conflicts+=(vulkan-extra-tools)
+  provides=(vulkan-extra-tools)
 
   _install fakeinstall/usr/bin/*
 
-  install -dm755 ${pkgdir}/usr/share/{doc,licenses}/${pkgname}
-  install -m644 VulkanTools*/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
-  install -m644 VulkanTools*/vkconfig/*.md "${pkgdir}"/usr/share/doc/${pkgname}/
+  # install doc
+  install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
+  install -m644 "${srcdir}"/VulkanTools/vkconfig/*.md "${pkgdir}"/usr/share/doc/"${pkgname}"/
+
+  # install license
+  install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install -m644 "${srcdir}"/VulkanTools/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
 
 package_vulkan-extra-layers-git(){
-  pkgdesc="Extra layers for Vulkan development"
+  pkgdesc='Extra layers for Vulkan development (git version)'
   depends=(vulkan-validation-layers)
+  conflicts=(vulkan-extra-layers)
+  provides=(vulkan-extra-layers)
   
   _install fakeinstall/usr/lib/libVkLayer_api_dump.so
   _install fakeinstall/usr/lib/libVkLayer_monitor.so
@@ -78,9 +85,13 @@ package_vulkan-extra-layers-git(){
   _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_monitor.json
   _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_screenshot.json
 
-  install -dm755 ${pkgdir}/usr/share/{doc,licenses}/${pkgname}
-  install -m644 VulkanTools*/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
-  install -m644 VulkanTools*/layersvt/README.md "${pkgdir}"/usr/share/doc/${pkgname}/
+  # install doc
+  install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
+  install -m644 "${srcdir}"/VulkanTools/layersvt/README.md "${pkgdir}"/usr/share/doc/"${pkgname}"/
+
+  # install license
+  install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install -m644 "${srcdir}"/VulkanTools/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
 
 sha256sums=(SKIP)
