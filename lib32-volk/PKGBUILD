@@ -49,7 +49,7 @@ package(){
 
   rm -rf "${pkgdir}"/usr/include
 
-  # install licence
+  # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/volk/LICENSE.md "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
 }
