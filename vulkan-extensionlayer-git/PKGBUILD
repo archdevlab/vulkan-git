@@ -49,7 +49,7 @@ package(){
   install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
   cp -r "${srcdir}"/Vulkan-ExtensionLayer/docs/* "${pkgdir}"/usr/share/doc/"${pkgname}"/
 
-  # install licence
+  # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-ExtensionLayer/LICENSE "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
