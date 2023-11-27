@@ -81,9 +81,9 @@ package_vulkan-extra-layers-git(){
   _install fakeinstall/usr/lib/libVkLayer_monitor.so
   _install fakeinstall/usr/lib/libVkLayer_screenshot.so
 
-  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_api_dump.json
-  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_monitor.json
-  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_screenshot.json
+  _install fakeinstall/usr/share/vulkan/explicit_layer.d/VkLayer_api_dump.json
+  _install fakeinstall/usr/share/vulkan/explicit_layer.d/VkLayer_monitor.json
+  _install fakeinstall/usr/share/vulkan/explicit_layer.d/VkLayer_screenshot.json
 
   # install doc
   install -dm755 "${pkgdir}"/usr/share/doc/"${pkgname}"/
