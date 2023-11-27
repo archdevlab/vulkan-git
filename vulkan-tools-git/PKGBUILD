@@ -77,7 +77,7 @@ package(){
 
   install -m755 "${srcdir}"/build-wayland/cube/vkcube-wayland "${pkgdir}"/usr/bin/
 
-  # install licence
+  # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-Tools/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
