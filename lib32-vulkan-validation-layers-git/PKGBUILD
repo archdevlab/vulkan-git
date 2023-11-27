@@ -62,7 +62,7 @@ package(){
 
   rm -rf "${pkgdir}"/usr/{include,share}
 
-  # install licence
+  # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/Vulkan-ValidationLayers/LICENSE.txt "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
