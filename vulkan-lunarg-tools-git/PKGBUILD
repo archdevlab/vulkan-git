@@ -2,17 +2,17 @@
 
 pkgbase=vulkan-lunarg-tools-git
 pkgname=(vulkan-extra-tools-git vulkan-extra-layers-git)
-pkgver=1.3.268.r42.g98597f9
+pkgver=1.3.268
 pkgrel=1
 arch=(x86_64)
-url="http://lunarg.com/"
+url='https://github.com/LunarG/VulkanTools.git'
 license=('custom')
 depends=()
 makedepends=(git cmake python libx11 libxrandr wayland qt5-svg qt5-webengine)
 source=(git+https://github.com/LunarG/VulkanTools.git)
 sha256sums=(SKIP)
 
-_install() {
+_install(){
   local src f dir
   for src; do
     f="${src#fakeinstall/}"
@@ -28,7 +28,7 @@ pkgver(){
   git describe --long --tags --abbrev=7 --exclude sdk-* --exclude vulkan-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
-build() {
+build(){
   rm -rf "${srcdir}"/{build,fakeinstall}
 
   "${srcdir}"/VulkanTools/scripts/update_deps.py --config release
