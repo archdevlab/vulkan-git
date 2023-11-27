@@ -39,7 +39,7 @@ build(){
 package(){
 	make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
 
-  # install licence
+  # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
   install -m644 "${srcdir}"/volk/LICENSE.md "${pkgdir}"/usr/share/licenses/"${pkgname}"/LICENSE
 }
