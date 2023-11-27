@@ -1,0 +1,88 @@
+# Maintainer: Laurent Carlier <lordheavym@gmail.com>
+
+pkgbase=vulkan-lunarg-tools-git
+pkgname=(vulkan-extra-tools-git vulkan-extra-layers-git)
+pkgver=1.3.268.r42.g98597f9
+pkgrel=1
+arch=(x86_64)
+url="http://lunarg.com/"
+license=('custom')
+depends=()
+makedepends=(git cmake python libx11 libxrandr wayland qt5-svg qt5-webengine)
+source=(git+https://github.com/LunarG/VulkanTools.git)
+sha256sums=(SKIP)
+
+_install() {
+  local src f dir
+  for src; do
+    f="${src#fakeinstall/}"
+    dir="${pkgdir}/${f%/*}"
+    install -m755 -d "${dir}"
+    mv -v "${src}" "${dir}/"
+  done
+}
+
+pkgver(){
+  cd "${srcdir}"/VulkanTools
+  # cutting off 'foo-' prefix that presents in the git tag
+  git describe --long --tags --abbrev=7 --exclude sdk-* --exclude vulkan-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build() {
+  rm -rf "${srcdir}"/{build,fakeinstall}
+
+  "${srcdir}"/VulkanTools/scripts/update_deps.py --config release
+
+  cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/VulkanTools \
+  -G "Unix Makefiles" \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
+  -D CMAKE_SKIP_RPATH=True \
+  -D BUILD_WSI_XCB_SUPPORT=On \
+  -D BUILD_WSI_XLIB_SUPPORT=On \
+  -D BUILD_WSI_WAYLAND_SUPPORT=On \
+  -D BUILD_TESTS=OFF \
+  -D BUILD_VIA=ON \
+  -D CMAKE_BUILD_TYPE=Release \
+  -Wno-dev
+  
+  make -j$(nproc) -C "${srcdir}"/build
+
+  make -j$(nproc) -C "${srcdir}"/build DESTDIR="${srcdir}/fakeinstall" install
+}
+
+package_vulkan-extra-tools-git(){
+  pkgdesc="Vulkan lunarg tools"
+  depends=(vulkan-validation-layers qt5-svg qt5-webengine)
+  conflicts=('vulkan-trace<1.2.148.1')
+
+  _install fakeinstall/usr/bin/*
+
+  install -dm755 ${pkgdir}/usr/share/{doc,licenses}/${pkgname}
+  install -m644 VulkanTools*/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 VulkanTools*/vkconfig/*.md "${pkgdir}"/usr/share/doc/${pkgname}/
+}
+
+package_vulkan-extra-layers-git(){
+  pkgdesc="Extra layers for Vulkan development"
+  depends=(vulkan-validation-layers)
+  
+  _install fakeinstall/usr/lib/libVkLayer_api_dump.so
+  _install fakeinstall/usr/lib/libVkLayer_monitor.so
+  _install fakeinstall/usr/lib/libVkLayer_screenshot.so
+
+  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_api_dump.json
+  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_monitor.json
+  _install fakeinstall/etc/vulkan/explicit_layer.d/VkLayer_screenshot.json
+
+  install -dm755 ${pkgdir}/usr/share/{doc,licenses}/${pkgname}
+  install -m644 VulkanTools*/LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/
+  install -m644 VulkanTools*/layersvt/README.md "${pkgdir}"/usr/share/doc/${pkgname}/
+}
+
+sha256sums=(SKIP)
+
+# vim:set ts=8 sts=2 sw=2 et:
