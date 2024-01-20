@@ -1,7 +1,7 @@
 #Maintainer: archdevlab <https://github.com/archdevlab>
 
 pkgname=vulkan-profiles-git
-pkgdesc='Vulkan header files (git version)'
+pkgdesc='Vulkan Profiles Toolset (git version)'
 pkgver=1.3.268.0.r94.g0255c1a
 pkgrel=1
 arch=(any)
