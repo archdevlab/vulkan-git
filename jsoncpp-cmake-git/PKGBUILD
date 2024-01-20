@@ -25,20 +25,7 @@ pkgver(){
 build(){
   rm -rf "${srcdir}"/build
 
-  cmake -B "${srcdir}"/build -S "${srcdir}"/jsoncpp \
-  -G "Unix Makefiles" \
-  -D CMAKE_BUILD_TYPE=Release \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D CMAKE_INSTALL_LIBDIR=lib \
-  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
-  -D CMAKE_INSTALL_DATADIR=/share \
-  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
-  -D CMAKE_INSTALL_SBINDIR="bin" \
-  -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
-  -D BUILD_STATIC_LIBS=ON \
-  -Wno-dev
-
-  cmake -B "${srcdir}"/build -S "${srcdir}"/jsoncpp \
+  cmake -B "${srcdir}"/build-shared -S "${srcdir}"/jsoncpp \
   -G "Unix Makefiles" \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
@@ -49,6 +36,19 @@ build(){
   -D CMAKE_INSTALL_SBINDIR="bin" \
   -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
   -D BUILD_SHARED_LIBS=ON \
+  -Wno-dev
+
+  cmake -B "${srcdir}"/build-static -S "${srcdir}"/jsoncpp \
+  -G "Unix Makefiles" \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
+  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D CMAKE_INSTALL_SBINDIR="bin" \
+  -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
+  -D BUILD_STATIC_LIBS=ON \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build-shared
