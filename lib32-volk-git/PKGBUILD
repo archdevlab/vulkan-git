@@ -38,6 +38,8 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -D CMAKE_INSTALL_LIBDIR=lib32 \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
   -D CMAKE_INSTALL_DATADIR=/share \
+  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+  -D Vulkan_INCLUDE_DIRS=/usr/include \
   -D VOLK_INSTALL=ON \
   -Wno-dev
 
