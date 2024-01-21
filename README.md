@@ -6,14 +6,14 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 
 #### List of Packages
 - vulkan-headers-git
+- vulkan-utility-libraries-git
+- lib32-vulkan-utility-libraries-git
 - vulkan-icd-loader-git
 - lib32-vulkan-icd-loader-git
 - vulkan-validation-layers-git
 - lib32-vulkan-validation-layers-git
 - vulkan-extensionlayer-git
 - lib32-vulkan-extensionlayer-git
-- vulkan-utility-libraries-git
-- lib32-vulkan-utility-libraries-git
 - volk-git
 - lib32-volk-git
 - vulkan-tools-git
