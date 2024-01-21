@@ -8,7 +8,7 @@ pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Tools'
 license=(Apache-2.0)
-makedepends=(cmake python vulkan-headers vulkan-icd-loader wayland-protocols glslang spirv-tools git make volk)
+makedepends=(cmake python vulkan-headers vulkan-icd-loader wayland-protocols spirv-tools git make volk)
 depends=(libx11 wayland libvulkan.so)
 conflicts=(vulkan-tools)
 provides=(vulkan-tools vulkan-tools-git)
@@ -32,8 +32,11 @@ build(){
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_INSTALL_LIBDIR=lib \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
-  -D CMAKE_INSTALL_DATADIR=/share \
-  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D CMAKE_INSTALL_DATADIR=share \
+  -D CMAKE_INSTALL_INCLUDEDIR=include \
+  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+  -D VOLK_INSTALL_DIR=/usr \
+  -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -D CMAKE_SKIP_RPATH=True \
   -D BUILD_WSI_XCB_SUPPORT=On \
   -D BUILD_WSI_XLIB_SUPPORT=On \
@@ -41,9 +44,6 @@ build(){
   -D BUILD_CUBE=ON \
   -D BUILD_VULKANINFO=ON \
   -D BUILD_ICD=OFF \
-  -D GLSLANG_INSTALL_DIR=/usr \
-  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
-  -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -Wno-dev
 
   #cmake -C helper.cmake -B "${srcdir}"/build-wayland -S "${srcdir}"/Vulkan-Tools \
@@ -53,8 +53,11 @@ build(){
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_INSTALL_LIBDIR=lib \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
-  -D CMAKE_INSTALL_DATADIR=/share \
-  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D CMAKE_INSTALL_DATADIR=share \
+  -D CMAKE_INSTALL_INCLUDEDIR=include \
+  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
+  -D VOLK_INSTALL_DIR=/usr \
+  -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -D CMAKE_SKIP_RPATH=True \
   -D BUILD_WSI_XCB_SUPPORT=OFF \
   -D BUILD_WSI_XLIB_SUPPORT=OFF \
@@ -63,9 +66,6 @@ build(){
   -D CUBE_WSI_SELECTION=WAYLAND \
   -D BUILD_VULKANINFO=OFF \
   -D BUILD_ICD=OFF \
-  -D GLSLANG_INSTALL_DIR=/usr \
-  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
-  -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
