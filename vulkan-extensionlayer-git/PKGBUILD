@@ -37,7 +37,6 @@ build(){
   -D VOLK_INSTALL_DIR=/usr \
   -D CMAKE_SKIP_RPATH=True \
   -D BUILD_TESTS=OFF \
-  -D INSTALL_TESTS=OFF \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
