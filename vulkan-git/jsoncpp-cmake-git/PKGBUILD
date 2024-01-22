@@ -1,0 +1,67 @@
+#Maintainer: archdevlab <https://github.com/archdevlab>
+#Credits: Endlesseden <eden AT rose DOT place>
+#Credits: Chocobo1 <chocobo1 AT archlinux DOT net>
+
+pkgname=jsoncpp-cmake-git
+pkgdesc="C++ library for interacting with JSON (cmake version) (git version)"
+pkgver=1.9.5.r6.g69098a1
+pkgrel=1
+arch=(x86_64)
+url='https://github.com/open-source-parsers/jsoncpp'
+license=(MIT custom)
+depends=(gcc-libs)
+makedepends=(git python cmake make)
+provides=(jsoncpp)
+conflicts=(jsoncpp)
+options=(staticlibs)
+source=(git+https://github.com/open-source-parsers/jsoncpp.git)
+
+pkgver(){
+ cd "${srcdir}"/jsoncpp
+ # cutting off 'foo-' prefix that presents in the git tag
+ git describe --long --tags --abbrev=7 | sed 's/^//;s/\([^-]*-g\)/r\1/;s/-/./g'
+}
+
+build(){
+  rm -rf "${srcdir}"/build
+
+  cmake -B "${srcdir}"/build-shared -S "${srcdir}"/jsoncpp \
+  -G "Unix Makefiles" \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
+  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D CMAKE_INSTALL_SBINDIR="bin" \
+  -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
+  -D BUILD_SHARED_LIBS=ON \
+  -Wno-dev
+
+  cmake -B "${srcdir}"/build-static -S "${srcdir}"/jsoncpp \
+  -G "Unix Makefiles" \
+  -D CMAKE_BUILD_TYPE=Release \
+  -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_SYSCONFDIR=/etc \
+  -D CMAKE_INSTALL_DATADIR=/share \
+  -D CMAKE_INSTALL_INCLUDEDIR="/usr/include/" \
+  -D CMAKE_INSTALL_SBINDIR="bin" \
+  -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
+  -D BUILD_STATIC_LIBS=ON \
+  -Wno-dev
+
+  make -j$(nproc) -C "${srcdir}"/build-shared
+  make -j$(nproc) -C "${srcdir}"/build-static
+}
+
+package() {
+  make -j$(nproc) -C "${srcdir}"/build-shared DESTDIR="${pkgdir}" install
+  make -j$(nproc) -C "${srcdir}"/build-static DESTDIR="${pkgdir}" install
+
+  # install license
+  install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install -m644 "${srcdir}"/jsoncpp/LICENSE "${pkgdir}"/usr/share/licenses/"${pkgname}"/
+}
+
+sha256sums=('SKIP')
