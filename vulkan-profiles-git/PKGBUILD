@@ -10,7 +10,6 @@ license=(Apache-2.0 BSD-2 BSL-1.0)
 makedepends=(cmake git ninja make valijson jsoncpp python-jsonschema vulkan-headers vulkan-icd-loader vulkan-utility-libraries)
 conflicts=(vulkan-profiles)
 provides=(vulkan-profiles)
-options=(!lto !strip)
 source=(git+https://github.com/KhronosGroup/Vulkan-Profiles.git)
 
 pkgver(){
