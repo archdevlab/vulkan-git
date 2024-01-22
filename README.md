@@ -17,6 +17,7 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 - vulkan-extensionlayer-git
 - lib32-vulkan-extensionlayer-git
 - vulkan-tools-git
+- vulkan-lunarg-tools-git
 
 ### Prebuild package
 
