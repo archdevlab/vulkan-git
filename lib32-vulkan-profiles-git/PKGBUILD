@@ -23,12 +23,14 @@ export CFLAGS+=" -m32"
 export CXXFLAGS+=" -m32"
 export LDFLAGS+=" -m32"
 export ASFLAGS+=" --32"
+export CFLAGS+=" -fPIC"
+export CXXFLAGS+=" -fPIC"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
   rm -rf "${srcdir}"/build
 
   cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Profiles \
-  -D UPDATE_DEPS=ON \
+  -D UPDATE_DEPS=OFF \
   -G "Unix Makefiles" \
   -D CMAKE_C_FLAGS=-m32 \
   -D CMAKE_CXX_FLAGS=-m32 \
@@ -43,6 +45,9 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -D JSONCPP_INSTALL_DIR=/usr \
   -D VALIJSON_INSTALL_DIR=/usr \
+  -D BUILD_TESTS=OFF \
+  -D ANDROID=OFF \
+  -D BUILD_TESTS_EXTRA=OFF \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
