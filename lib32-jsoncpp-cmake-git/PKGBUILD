@@ -45,6 +45,9 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -D CMAKE_INSTALL_SBINDIR="bin" \
   -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
   -D BUILD_SHARED_LIBS=ON \
+  -D JSONCPP_WITH_TESTS=OFF \
+  -D JSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
+  -D JSONCPP_WITH_PKGCONFIG_SUPPORT=OFF \
   -Wno-dev
 
    cmake -B "${srcdir}"/build-static -S "${srcdir}"/jsoncpp \
@@ -61,6 +64,9 @@ export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
   -D CMAKE_INSTALL_SBINDIR="bin" \
   -D JSONCPP_WITH_CMAKE_PACKAGE=ON \
   -D BUILD_STATIC_LIBS=ON \
+  -D JSONCPP_WITH_TESTS=OFF \
+  -D JSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
+  -D JSONCPP_WITH_PKGCONFIG_SUPPORT=OFF \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build-shared
