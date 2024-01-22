@@ -10,6 +10,7 @@ license=(Apache-2.0 BSD-2 BSL-1.0)
 makedepends=(cmake git ninja make valijson jsoncpp python-jsonschema vulkan-headers vulkan-icd-loader vulkan-utility-libraries)
 conflicts=(vulkan-profiles)
 provides=(vulkan-profiles)
+options=(!lto !strip)
 source=(git+https://github.com/KhronosGroup/Vulkan-Profiles.git)
 
 pkgver(){
@@ -19,10 +20,13 @@ pkgver(){
 }
 
 build(){
+export CFLAGS+=" -fPIC"
+export CXXFLAGS+=" -fPIC"
+
   rm -rf "${srcdir}"/build
 
   cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Profiles \
-  -D UPDATE_DEPS=ON \
+  -D UPDATE_DEPS=OFF \
   -G "Unix Makefiles" \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
@@ -36,6 +40,9 @@ build(){
   -D VULKAN_LOADER_INSTALL_DIR=/usr \
   -D JSONCPP_INSTALL_DIR=/usr \
   -D VALIJSON_INSTALL_DIR=/usr \
+  -D BUILD_TESTS=OFF \
+  -D ANDROID=OFF \
+  -D BUILD_TESTS_EXTRA=OFF \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
