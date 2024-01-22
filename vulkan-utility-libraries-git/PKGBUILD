@@ -28,11 +28,11 @@ build(){
   -G "Unix Makefiles" \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
+  -D CMAKE_INSTALL_BINDIR=bin \
   -D CMAKE_INSTALL_LIBDIR=lib \
+  -D CMAKE_INSTALL_INCLUDEDIR=include \
   -D CMAKE_INSTALL_SYSCONFDIR=/etc \
   -D CMAKE_INSTALL_DATADIR=share \
-  -D CMAKE_INSTALL_INCLUDEDIR=include \
-  -D VULKAN_HEADERS_INSTALL_DIR=/usr \
   -Wno-dev
 
   make -j$(nproc) -C "${srcdir}"/build
