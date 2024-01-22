@@ -7,7 +7,7 @@ pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Profiles'
 license=(Apache-2.0 BSD-2 BSL-1.0)
-makedepends=(cmake git ninja make valijson jsoncpp python-jsonschema vulkan-headers vulkan-icd-loader vulkan-utility-libraries)
+makedepends=(cmake git ninja make valijson-git jsoncpp-cmake-git python-jsonschema vulkan-headers vulkan-icd-loader vulkan-utility-libraries)
 depends=(gcc-libs vulkan-icd-loader vulkan-headers vulkan-utility-libraries libx11)
 conflicts=(vulkan-profiles)
 provides=(vulkan-profiles)
@@ -20,9 +20,6 @@ pkgver(){
 }
 
 build(){
-export CFLAGS+=" -fPIC"
-export CXXFLAGS+=" -fPIC"
-
   rm -rf "${srcdir}"/build
 
   cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Profiles \
