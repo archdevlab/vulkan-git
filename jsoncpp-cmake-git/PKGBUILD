@@ -4,7 +4,7 @@
 
 pkgname=jsoncpp-cmake-git
 pkgdesc="C++ library for interacting with JSON (cmake version) (git version)"
-pkgver=1.9.5.r6.g69098a1
+pkgver=1.9.5
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/open-source-parsers/jsoncpp'
