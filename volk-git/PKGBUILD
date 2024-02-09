@@ -3,7 +3,7 @@
 
 pkgname=volk-git
 pkgdesc='Meta loader for Vulkan API (git version)'
-pkgver=1.3.275.0.r5.g7121910
+pkgver=1.3.275.r5.g7121910
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/zeux/volk'
