@@ -24,7 +24,7 @@ _install(){
 
 pkgver(){
   cd "${srcdir}"/VulkanTools
-  git describe --long --tags --abbrev=7 --match='v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  git describe --long --tags --abbrev=7 --match='v*' | sed 's/^vulkan-sdk-//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build(){
