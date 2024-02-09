@@ -16,7 +16,8 @@ source=(git+https://github.com/KhronosGroup/Vulkan-Profiles.git)
 pkgver(){
   cd "${srcdir}"/Vulkan-Profiles
   #git describe --long --tags --abbrev=7 --match='sdk*' --match='vulkan*'| sed 's/^vulkan-sdk-//;s/\([^-]*-g\)/r\1/;s/-/./g'
-  git describe --long --tags --abbrev=7 --exclude 'roadmap*' | sed -r 's,^[^0-9]+,,;s,([0-9]*-g),r\1,;s,[-_],.,g'
+  #git describe --long --tags --abbrev=7 --exclude 'roadmap*' | sed -r 's,^[^0-9]+,,;s,([0-9]*-g),r\1,;s,[-_],.,g'
+  git describe --long --tags --abbrev=7 --exclude 'roadmap*' | sed -r 's,^[^0-9]+,,;s,([0-9]*-g),r\1,;s,[-_],.,g' | sed 's/.0//g'
 }
 
 build(){
