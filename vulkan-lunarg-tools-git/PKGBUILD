@@ -49,7 +49,7 @@ build(){
   -D BUILD_WSI_XLIB_SUPPORT=ON \
   -D BUILD_WSI_WAYLAND_SUPPORT=ON \
   -D BUILD_TESTS=OFF \
-  -D BUILD_VIA=ON \
+  -D BUILD_VIA=OFF \
   -Wno-dev
   
   make -j$(nproc) -C "${srcdir}"/build
