@@ -16,7 +16,7 @@ source=(git+https://github.com/zeux/volk.git)
 
 pkgver(){
   cd "${srcdir}"/volk
-  git describe --long --tags --abbrev=7 --exclude sdk-* --exclude vulkan-* | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  git describe --long --tags --abbrev=7 | sed 's/^vulkan-sdk-//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build(){
