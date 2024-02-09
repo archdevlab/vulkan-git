@@ -2,7 +2,7 @@
 
 pkgname=vulkan-profiles-git
 pkgdesc='Vulkan Profiles Toolset (git version)'
-pkgver=1.3.268.0
+pkgver=1.3.268.0.r100.g856c06e
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Profiles'
@@ -15,8 +15,7 @@ source=(git+https://github.com/KhronosGroup/Vulkan-Profiles.git)
 
 pkgver(){
   cd "${srcdir}"/Vulkan-Profiles
-  # cutting off 'foo-' prefix that presents in the git tag
-  git describe --long --tags --abbrev=7 | sed 's/^vulkan-sdk-//;s/\([^-]*-g\)/r\1/;s/-/./g'
+  git describe --long --tags --abbrev=7 --match='sdk*' --match='vulkan*'| sed 's/^vulkan-sdk-//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
 build(){

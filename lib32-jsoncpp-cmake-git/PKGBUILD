@@ -4,7 +4,7 @@
 
 pkgname=lib32-jsoncpp-cmake-git
 pkgdesc="C++ library for interacting with JSON (cmake version) (32-bit) (git version)"
-pkgver=1.9.5
+pkgver=1.9.5.r6.g69098a1
 pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/open-source-parsers/jsoncpp'
@@ -18,7 +18,6 @@ source=(git+https://github.com/open-source-parsers/jsoncpp.git)
 
 pkgver(){
  cd "${srcdir}"/jsoncpp
- # cutting off 'foo-' prefix that presents in the git tag
  git describe --long --tags --abbrev=7 | sed 's/^//;s/\([^-]*-g\)/r\1/;s/-/./g'
 }
 
@@ -29,7 +28,7 @@ export LDFLAGS+=" -m32"
 export ASFLAGS+=" --32"
 export PKG_CONFIG_PATH=/usr/lib32/pkgconfig
 
-  rm -rf "${srcdir}"/build
+  rm -rf "${srcdir}"/build-{shared,static}
 
   cmake -B "${srcdir}"/build-shared -S "${srcdir}"/jsoncpp \
   -D CMAKE_C_FLAGS=-m32 \
