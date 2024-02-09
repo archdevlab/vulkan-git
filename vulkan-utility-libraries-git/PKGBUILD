@@ -39,6 +39,10 @@ build(){
 
 package(){
   make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
+
+  # install license
+  install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
+  install -m644 "${srcdir}"/Vulkan-Utility-Libraries/LICENSES/* "${pkgdir}"/usr/share/licenses/"${pkgname}"/
 }
 
 sha256sums=(SKIP)
