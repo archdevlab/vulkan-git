@@ -1,6 +1,6 @@
 #Maintainer: archdevlab <https://github.com/archdevlab>
 
-pkgname=vulkan-extensionlayer-git
+pkgname=vulkan-extension-layers-git
 pkgdesc='Layer providing Vulkan features when native support is unavailable (git version)'
 pkgver=1.3.277.r1.g419e442
 pkgrel=1
@@ -9,7 +9,10 @@ url='https://github.com/KhronosGroup/Vulkan-ExtensionLayer.git'
 license=(Apache-2.0)
 makedepends=(cmake python-lxml libxrandr wayland git make)
 depends=(gcc-libs vulkan-icd-loader vulkan-headers vulkan-utility-libraries volk libx11)
-provides=(vulkan-extensionlayers vulkan-extensionlayers-git)
+### conflicts/provides/replaces: not in official archliux repos, so list a few package names that archlinnux packager can use
+conflicts=(vulkan-extensionlayer-git vulkan-extension-layers vulkan-extension-layer vulkan-extensionlayer vulkan-extensionlayers)
+provides=(vulkan-extensionlayers vulkan-extensionlayer vulkan-extension-layer vulkan-extension-layers)
+replaces=(vulkan-extensionlayer-git)
 options=(!lto !strip) # disable LTO (https://github.com/KhronosGroup/Vulkan-ValidationLayers/issues/5994)
 source=(git+https://github.com/KhronosGroup/Vulkan-ExtensionLayer.git)
 
