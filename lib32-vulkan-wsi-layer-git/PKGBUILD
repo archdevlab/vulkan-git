@@ -12,6 +12,8 @@ license=(MIT)
 # For the layer JSON description
 depends=(lib32-vulkan-icd-loader vulkan-wsi-layer)
 makedepends=(git cmake ninja vulkan-headers)
+conflicts=(lib32-vulkan-wsi-layer)
+provides=(lib32-vulkan-wsi-layer)
 source=(git+https://gitlab.freedesktop.org/mesa/vulkan-wsi-layer.git)
 
 pkgver(){
