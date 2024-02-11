@@ -24,6 +24,8 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 - lib32-jsoncpp-cmake-git
 - vulkan-profiles-git
 - lib32-vulkan-profiles-git
+- vulkan-wsi-layer-git
+- lib32-vulkan-wsi-layer-git
 
 ### Prebuild package
 
