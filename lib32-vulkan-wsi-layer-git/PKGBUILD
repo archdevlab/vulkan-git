@@ -9,8 +9,9 @@ pkgrel=1
 arch=(x86_64)
 url='https://gitlab.freedesktop.org/mesa/vulkan-wsi-layer'
 license=(MIT)
+depends=(lib32-vulkan-icd-loader)
 # For the layer JSON description
-depends=(lib32-vulkan-icd-loader vulkan-wsi-layer)
+depends+=(lib32-vulkan-icd-loader vulkan-wsi-layer)
 makedepends=(git cmake ninja vulkan-headers)
 conflicts=(lib32-vulkan-wsi-layer)
 provides=(lib32-vulkan-wsi-layer)
