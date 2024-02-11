@@ -4,7 +4,8 @@
 
 Contains all Vulkan packages suite from Archlinux build directly from KhronosGroup git repos
 
-#### List of Packages
+#### List of Packages in build order
+
 - vulkan-headers-git
 - vulkan-icd-loader-git
 - lib32-vulkan-icd-loader-git
@@ -18,6 +19,11 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 - lib32-vulkan-extensionlayer-git
 - vulkan-tools-git
 - vulkan-lunarg-tools-git
+- valijson-git
+- jsoncpp-cmake-git
+- lib32-jsoncpp-cmake-git
+- vulkan-profiles-git
+- lib32-vulkan-profiles-git
 
 ### Prebuild package
 
