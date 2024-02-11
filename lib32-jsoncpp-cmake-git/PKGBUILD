@@ -5,7 +5,7 @@
 pkgname=lib32-jsoncpp-cmake-git
 pkgdesc="C++ library for interacting with JSON (cmake version) (32-bit) (git version)"
 pkgver=1.9.5.r6.g69098a1
-pkgrel=3
+pkgrel=1
 arch=(i686 x86_64)
 url='https://github.com/open-source-parsers/jsoncpp'
 license=(MIT custom:Public_Domain)
