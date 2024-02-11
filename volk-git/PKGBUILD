@@ -13,6 +13,7 @@ depends=(vulkan-headers vulkan-icd-loader)
 makedepends=(cmake git make)
 conflicts=(volk)
 provides=(volk)
+options=(staticlibs)
 source=(git+https://github.com/zeux/volk.git)
 
 pkgver(){
