@@ -15,8 +15,8 @@ Contains all Vulkan packages suite from Archlinux build directly from KhronosGro
 - lib32-vulkan-validation-layers-git
 - volk-git
 - lib32-volk-git
-- vulkan-extensionlayer-git
-- lib32-vulkan-extensionlayer-git
+- vulkan-extension-layers-git
+- lib32-vulkan-extension-layers-git
 - vulkan-tools-git
 - vulkan-lunarg-tools-git
 - valijson-git
