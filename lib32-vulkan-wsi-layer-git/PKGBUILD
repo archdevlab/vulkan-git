@@ -3,7 +3,7 @@
 
 pkgname=lib32-vulkan-wsi-layer-git
 pkgdesc='Vulkan® Window System Integration Layer'
-pkgver=1.3.216.r115.g8a74233
+pkgver=1.3.216.r116.gb02486f
 _major=1.3
 pkgrel=1
 arch=(x86_64)

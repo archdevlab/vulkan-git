@@ -2,7 +2,7 @@
 
 pkgname=vulkan-profiles-git
 pkgdesc='Vulkan Profiles Toolset (git version)'
-pkgver=1.3.285.r0.gd9543ce
+pkgver=1.3.288.r0.g1737ca6
 _major=1.3
 pkgrel=1
 arch=(x86_64)
