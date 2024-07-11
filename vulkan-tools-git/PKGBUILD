@@ -3,7 +3,7 @@
 
 pkgname=vulkan-tools-git
 pkgdesc='Vulkan Utilities and Tools (git version)'
-pkgver=1.3.288.r0.g345af47
+pkgver=1.3.289.r2.g7e13360
 pkgrel=1
 arch=(x86_64)
 url='https://github.com/KhronosGroup/Vulkan-Tools'
@@ -69,8 +69,8 @@ build(){
   -D BUILD_ICD=OFF \
   -Wno-dev
 
-  make -j$(nproc) -C "${srcdir}"/build
-  make -j$(nproc) -C "${srcdir}"/build-wayland
+  ninja -j$(nproc) -C "${srcdir}"/build
+  ninja -j$(nproc) -C "${srcdir}"/build-wayland
 }
 
 package(){

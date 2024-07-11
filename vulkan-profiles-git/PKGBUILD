@@ -2,7 +2,7 @@
 
 pkgname=vulkan-profiles-git
 pkgdesc='Vulkan Profiles Toolset (git version)'
-pkgver=1.3.288.r0.g1737ca6
+pkgver=1.3.289.r0.g037ce95
 _major=1.3
 pkgrel=1
 arch=(x86_64)
@@ -27,7 +27,7 @@ build(){
 
   cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-Profiles \
   -D UPDATE_DEPS=OFF \
-  -G "Unix Makefiles" \
+  -G Ninja \
   -D CMAKE_BUILD_TYPE=Release \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D CMAKE_INSTALL_BINDIR=bin \
@@ -45,11 +45,11 @@ build(){
   -D BUILD_TESTS_EXTRA=OFF \
   -Wno-dev
 
-  make -j$(nproc) -C "${srcdir}"/build
+  ninja -j$(nproc) -C "${srcdir}"/build
 }
 
 package(){
-  make -j$(nproc) -C "${srcdir}"/build DESTDIR="${pkgdir}" install
+  DESTDIR="${pkgdir}" ninja -j$(nproc) -C "${srcdir}"/build install
 
   # install license
   install -dm755 "${pkgdir}"/usr/share/licenses/"${pkgname}"
