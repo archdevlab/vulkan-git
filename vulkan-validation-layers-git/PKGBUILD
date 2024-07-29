@@ -23,7 +23,7 @@ pkgver(){
 build(){
   rm -rf "${srcdir}"/build
 
-  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release
+  "${srcdir}"/Vulkan-ValidationLayers/scripts/update_deps.py --config release --generator Ninja
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/Vulkan-ValidationLayers \
   -G Ninja \
