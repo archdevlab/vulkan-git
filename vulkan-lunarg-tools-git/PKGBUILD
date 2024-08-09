@@ -34,7 +34,7 @@ pkgver(){
 build(){
   rm -rf "${srcdir}"/{build,fakeinstall}
 
-  "${srcdir}"/VulkanTools/scripts/update_deps.py --config release
+  "${srcdir}"/VulkanTools/scripts/update_deps.py --config release --generator Ninja
 
   cmake -C helper.cmake -B "${srcdir}"/build -S "${srcdir}"/VulkanTools \
   -G Ninja \
