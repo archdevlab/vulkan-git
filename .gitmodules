@@ -1,0 +1,3 @@
+[submodule "linux-llvm"]
+	path = linux-llvm
+	url = https://aur.archlinux.org/linux-llvm.git
